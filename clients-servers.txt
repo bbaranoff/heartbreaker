@@ -1,0 +1,11 @@
+bsc-2rfa 172.17.0.2
+server rand 888 listen on 0.0.0.0
+client sres 666 -> 172.17.0.3
+
+bb-2rfa 172.17.0.3
+client rand 888 -> 172.17.0.2
+server sres 666 listen on 0.0.0.0
+server kc 777 listen on 0.0.0.0
+
+osmocom-genuine-ms 172.17.0.2
+client kc 777 -> 172.17.0.3

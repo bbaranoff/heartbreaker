@@ -1,0 +1,85 @@
+Presentation :
+
+softSIM is a collection of tools to play with SIM.
+It mainly relies on SAP, as abstraction layer to access SIM.
+SAP is a implementation of the BTSAP (Bluetooth SIM Access Profile) spec.
+Note: while SAP allows to communication with any smart card (SIM, USIM, ...), the tools here only implement ro use the SIM functionalities.
+
+Overview :
+
+Client and server share common constants, functions, message queue handling.
+This common part is defined in common.rb.
+client.rb is a child of common.rb, it implements the client state machine of SAP.
+You mainly have to provide an I/O to connect to the server.
+You can then connect, get the ATR, send some APDU, and disconnect.
+server.rb is a child of common.rb, it implements the server state machine of SAP
+server.rb does not work on it's own, but is an abstract class (it has abstract methods).
+You have to implement the connect, disconnect, atr, apdu functions.
+You also have to provide an I/O for the server to listen to.
+apdu.rb contains general method to abstract SIM commands.
+
+Tools & Demo :
+
+bluetooth_sap_seriali.rb :
+- searches for bluetooth SAP servers, connects to it, and return the serial port path (bluez and dbus are used)
+
+demo_client :
+- its purpose is to test the client implementation (just the basics)
+- use the CLI to indicate the server
+- it can use different client (demo, info, copy)
+  - demo : only executes some very common APDUs
+  - info : displays information stored in the SIM (see info_client.rb)
+  - copy : copies the files from the SIM into a XML file (see copy_client.rb)
+  
+info_client.rb :
+- it reads and displays information stored on the SIM :
+  - ICCID
+  - IMSI
+  - MSISDN
+  - OFM
+  - services provided
+  - some Kc
+  - ...
+- it's easy to decode more info
+
+copy_client.rb :
+- it copies all the files (MF/DF/EF) from the SIM into an XML file
+- it's not a clone, as Ki can not be copied (used for the authentication and encryption)
+- some authentication triplets are also extracted
+- the CHV1/PIN is also saved
+- only the body of the files with access condition ALWAYS and CHV1 can be copied, otherwise only the header is saved.
+
+demo_server.rb :
+- its purpose is to start the server implementations (sim, pcsc)
+- use the CLI to configure it
+- a sim.xml SIM file is provided for demonstration and testing purposes, but you can make your own using copy_client.rb
+
+pcsc_server.rb :
+- this is a server implementation that uses a classic smart card reader to connect to the SIM (smartcard gem used)
+
+simos_server.rb :
+- this provides a softSIM (software SIM)
+- it is SIMOS
+- the SIM files have to be provided in a xml file
+
+apdu_forward :
+- it's just a APDU to SAP wrapped
+- it takes APDU from an I/O, acts as a SAP client, connects to a SAP server, gets the response, return the response APDU
+- it has been used do use external SIM (or softSIM) with osmocomBB
+
+Requirements :
+- ruby 1.8.7
+- rubygems and ruby-dev to build some gems
+- libdbus-ruby (for bluetooth_sap_serial)
+- serialport gem (to use bluetooth_sap_serial, http://rubygems.org/gems/serialport)
+- smartcard gem (for pcsc_server, http://www.rubygems.org/gems/smartcard, requires libpcsclite1 libpcsclite-dev libruby)
+- libxml-ruby (for sim server)
+
+TODO :
+
+SAP :
+- it does not implement the functions for the proactive SIM : power_on/off, reset, ...
+
+sim_server :
+- not all the commands are implemented (even the PIN verification)
+- implement COMP128v1

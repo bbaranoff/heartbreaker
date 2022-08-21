@@ -1,0 +1,109 @@
+Source: openbsc
+Maintainer: Harald Welte <laforge@gnumonks.org>
+Section: net
+Priority: optional
+Build-Depends: debhelper (>= 9),
+               autotools-dev,
+               autoconf-archive,
+               pkg-config,
+               libdbi0-dev,
+               dh-autoreconf,
+               dh-systemd (>= 1.5),
+               libsmpp34-dev (>= 1.13.0),
+               libosmocore-dev (>= 1.0.1),
+               libosmo-abis-dev (>= 0.6.0),
+               libosmo-netif-dev (>= 0.4.0),
+               libosmo-sccp-dev (>= 1.0.0),
+               libdbd-sqlite3,
+               libpcap-dev
+Standards-Version: 3.9.8
+Vcs-Git: git://bs11-abis.gnumonks.org/openbsc.git
+Vcs-Browser: http://openbsc.osmocom.org/trac/browser
+Homepage: https://projects.osmocom.org/projects/openbsc
+
+Package: osmocom-bsc-sccplite
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: GSM Base Station Controller
+ This is the BSC-only version of OpenBSC. It requires a Mobile Switching Center
+ (MSC) to operate.
+ .
+ You might rather prefer to use osmocom-nitb which is considered a
+ "GSM Network-in-a-Box" and does not depend on a MSC.
+
+Package: osmocom-nitb
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libdbd-sqlite3
+Description: GSM Network-in-a-Box, implements BSC, MSC, SMSC, HLR, VLR
+ This is the Network-in-a-Box version of OpenBSC. It has all the GSM network
+ components bundled together. When using osmocom-nitb, there is no need for a
+ Mobile Switching Center (MSC) which is needed when using osmocom-bsc-sccplite.
+
+Package: osmocom-bs11-utils
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: Command line utilities for Siemens BS-11 BTS
+ There is a tool in this package for configuring the Siemens BS-11 BTS.
+ Additionally, it contains one tool for making use of an ISDN-card and the
+ public telephone network as frequency standard for the E1 line.
+
+Package: osmocom-bsc-nat
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Recommends: osmocom-bsc-sccplite
+Description: Osmocom Base Station Controller Network Address Translation
+ This NAT is useful for masquerading multiple BSCs behind one. It listens
+ for incoming BSCs on port 5000 and connects to a specified Mobile Switching
+ Center (MSC).
+ .
+ This package is part of OpenBSC and closely related to osmocom-bsc-sccplite.
+
+Package: osmo-bsc-mgcp
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: OsmoBSC-MGCP: Osmocom's Legacy Media Gateway.
+
+Package: osmocom-bsc-sccplite-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmocom-bsc-sccplite (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for the OpenBSC BSC
+ Make debugging possible
+
+Package: osmocom-nitb-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmocom-nitb (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for the OpenBSC NITB
+ Make debugging possible
+
+Package: osmocom-bs11-utils-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmocom-bs11-utils (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for the OpenBSC BS11 utils
+ Make debugging possible
+
+Package: osmocom-bsc-nat-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmocom-bsc-nat (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for the OpenBSC Network Address Translation
+ Make debugging possible
+
+Package: osmo-bsc-mgcp-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Debug symbols for the  Osmocom's Legacy Media Gateway.
