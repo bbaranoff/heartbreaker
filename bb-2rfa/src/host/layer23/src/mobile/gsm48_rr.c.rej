@@ -1,0 +1,10 @@
+--- src/host/layer23/src/mobile/gsm48_rr.c
++++ src/host/layer23/src/mobile/gsm48_rr.c
+@@ -79,7 +79,6 @@
+ #include <osmocom/bb/common/networks.h>
+ #include <osmocom/bb/common/l1ctl.h>
+ #include <osmocom/bb/mobile/vty.h>
+-#include <osmocom/bb/mobile/dos.h>
+ 
+ #include <l1ctl_proto.h>
+ 

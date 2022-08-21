@@ -1,0 +1,11 @@
+bsc-2rfa
+server rand 888
+client sres 666
+
+bb-2rfa
+client rand 888
+server sres 666
+server kc 777
+
+osmocom-genuine-ms
+client kc 777
