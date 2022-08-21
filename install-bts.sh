@@ -52,3 +52,5 @@ cd osmo-bts
 git checkout 0.8.1
 autoreconf -fi && ./configure --enable-trx && make -j4 && make install && ldconfig
 
+apt install ruby-libxml ruby-dev ruby-dbus
+gem install serial smartcard
