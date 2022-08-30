@@ -57,7 +57,7 @@ apt install ruby-libxml ruby-dev ruby-dbus
 gem install serial smartcard
 
 cp -r softsim /heartbreaker
-cp nitb.sh /heartbreaker
+cp nitb.sh openbts.cfg /heartbreaker
 cp evil_bts.sh /heartbreaker
 mkdir -p /root/.osmocom/bb/
 cp osmocom-bb/doc/examples/mobile/default.cfg /root/.osmocom/bb/mobile.cfg
