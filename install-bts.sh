@@ -51,6 +51,16 @@ git clone https://github.com/osmocom/osmo-bts
 cd osmo-bts
 git checkout 0.8.1
 autoreconf -fi && ./configure --enable-trx && make -j4 && make install && ldconfig
+cd ..
 
 apt install ruby-libxml ruby-dev ruby-dbus
 gem install serial smartcard
+
+cp -r softsim /heartbreaker
+cp nitb.sh /heartbreaker
+cp evil_bts.sh /heartbreaker
+mkdir -p /root/.osmocom/bb/
+cp osmocom-bb/doc/examples/mobile/default.cfg /root/.osmocom/bb/mobile.cfg
+sed -i -e 's/sim reader/sim sap/g' /root/.osmocom/bb/mobile.cfg
+
+
