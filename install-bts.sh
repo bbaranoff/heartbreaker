@@ -58,7 +58,7 @@ gem install serial smartcard
 
 cp -r softsim /heartbreaker
 cp nitb.sh openbts.cfg /heartbreaker
-cp evil_bts.sh /heartbreaker
+cp evil_bts.sh evil-bts.cfg /heartbreaker
 mkdir -p /root/.osmocom/bb/
 cp osmocom-bb/doc/examples/mobile/default.cfg /root/.osmocom/bb/mobile.cfg
 sed -i -e 's/sim reader/sim sap/g' /root/.osmocom/bb/mobile.cfg
