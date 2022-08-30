@@ -42,7 +42,7 @@ git clone https://github.com/osmocom/libosmo-netif
 cd libosmo-netif
 git checkout 0.6.0
 autoreconf -fi && ./configure && make -j4 && make install && ldconfig
-
+cd ..
 
 cd bsc-2rfa/openbsc
 autoreconf -fi && ./configure && make -j4
